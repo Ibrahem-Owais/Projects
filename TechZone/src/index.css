@@ -1,0 +1,229 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 76px;
+}
+
+body,
+div,
+section,
+nav,
+.card {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* CONTAINER OF ALL  */
+.pc-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* background-color: #0b0d14; */
+    background-color: transparent;
+}
+
+/* MAIN CASE  */
+.pc-case {
+    width: 120px;
+    height: 200px;
+    background: #161822;
+    border-radius: 12px;
+    position: relative;
+    border: 2px solid #282c3f;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+    padding: 12px;
+}
+
+/* BOWER BUTTON & USB  */
+.front-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 4px;
+}
+
+.power-button {
+    width: 8px;
+    height: 8px;
+    background-color: #00e5ff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00e5ff;
+    animation: pulse-glow 1.5s infinite alternate;
+}
+
+.usb-ports {
+    display: flex;
+    gap: 4px;
+}
+
+.usb-ports span {
+    width: 6px;
+    height: 2px;
+    background-color: #4a516d;
+}
+
+/* GLASS WINDOW  */
+.glass-window {
+    width: 100%;
+    height: 90%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/* COOLER (FAN) */
+.cooler-fan {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px dashed #ff007f;
+    /* position: absolute; */
+    /* left: 10px; */
+    animation: spin 1s linear infinite, rgb-flow 6s infinite linear;
+}
+
+/* THE ALL RAM  */
+.ram-module {
+    width: 4px;
+    height: 80%;
+    background: #00ffcc;
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    border-radius: 2px;
+    box-shadow: 0 0 10px #00ffcc;
+    animation: ram-glow 2s infinite alternate;
+}
+
+/* RAM-2  */
+.ram-2 {
+    right: 20px;
+    animation-delay: 0.3s;
+}
+
+
+
+/* BOTTOM GPU  */
+
+
+/* .gpu-block {
+    width: 64px;
+    height: 16px;
+    background: #202433;
+    border: 1px solid #363c54;
+    border-radius: 4px;
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+}
+
+.gpu-stripe {
+    width: 100%;
+    height: 3px;
+    background: #8a2be2;
+    border-radius: 2px;
+    box-shadow: 0 0 8px #8a2be2;
+    animation: gpu-pulse 3s infinite alternate;
+} */
+
+/* FOOTER OF FEET  */
+.feet {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.foot {
+    width: 18px;
+    height: 6px;
+    background: #0d0e14;
+    border-radius: 0 0 4px 4px;
+}
+
+/* ANIMATION OF SPIN AROUND FAN  */
+@keyframes spin {
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+/* ANIMATION COLOR AROUND THE FAN  */
+@keyframes rgb-flow {
+    0% {
+        border-color: #ff007f;
+        box-shadow: 0 0 12px #ff007f;
+    }
+
+    33% {
+        border-color: #00e5ff;
+        box-shadow: 0 0 12px #00e5ff;
+    }
+
+    66% {
+        border-color: #8a2be2;
+        box-shadow: 0 0 12px #8a2be2;
+    }
+
+    100% {
+        border-color: #ff007f;
+        box-shadow: 0 0 12px #ff007f;
+    }
+}
+
+/* ANIMATION OF POWER BUTTON  */
+@keyframes pulse-glow {
+    0% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 12px #00e5ff;
+    }
+}
+
+/* ANIMATION OF RAM  */
+@keyframes ram-glow {
+    0% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 12px #00ffcc;
+    }
+}
+
+/* ANIMATION OF GPU  */
+
+/* @keyframes gpu-pulse {
+    0% {
+        background: #8a2be2;
+        box-shadow: 0 0 6px #8a2be2;
+    }
+
+    100% {
+        background: #00e5ff;
+        box-shadow: 0 0 10px #00e5ff;
+    }
+} */

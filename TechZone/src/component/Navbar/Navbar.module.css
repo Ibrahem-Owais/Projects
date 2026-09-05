@@ -1,0 +1,80 @@
+.customSubmenuToggle,
+.customSubmenuToggle:focus,
+.customSubmenuToggle:active {
+    background-color: transparent !important;
+    color: #212529 !important;
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    width: 100%;
+    text-align: right;
+}
+
+/* CHANGE COLOR OF TEXT IN DARK MODE  */
+[data-bs-theme="dark"] .customSubmenuToggle,
+[data-bs-theme="dark"] .customSubmenuToggle:focus,
+[data-bs-theme="dark"] .customSubmenuToggle:active {
+    color: #f8f9fa !important;
+}
+
+/* PC COMPONENT HOVER  */
+.customSubmenuToggle:hover {
+    background-color: #f8f9fa !important;
+    color: #1e2125 !important;
+}
+
+[data-bs-theme="dark"] .customSubmenuToggle:hover {
+    background-color: #2b3035 !important;
+    color: #fff !important;
+}
+
+/* DROP DOWN OF PC COMPONENT  */
+.nestedDropdownMenu {
+    display: none;
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.nestedDropdownMenu.show {
+    display: block !important;
+}
+
+/* DROP DOWN OF PC COMPONENT  */
+.subItem {
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.subItem:hover {
+    background-color: #1e2125 !important;
+    color: #f8f9fa !important;
+}
+
+/* PROFILE BUTTON  */
+.profileBtn {
+  width: 38px;
+  height: 38px;
+  color: var(--bs-body-color);
+  background-color: transparent;
+  border: 1px solid var(--bs-border-color);
+  transition: all 0.25s ease-in-out;
+}
+
+
+/* HOVER WILL ICON ACTIV  */
+.profileBtn:hover,
+.profileBtn:global(.active) {
+  background-color: #1B64F2;
+  border-color: #1B64F2;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(27, 100, 242, 0.25);
+}
+
+
+.profileIcon {
+  transition: transform 0.2s ease;
+}
+
+.profileBtn:hover .profileIcon {
+  transform: scale(1.1);
+}
