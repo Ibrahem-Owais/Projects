@@ -21,7 +21,6 @@ export default function Register() {
     function handleSubmit(e) {
         e.preventDefault();
 
-        // CHECK IF THE PASS DONT LESS THAN 8 
         if (user.userPassword.length < 8) {
             const msg = "Password must be at least 8 characters long";
             setErrorMsg(msg);
@@ -29,7 +28,6 @@ export default function Register() {
             return;
         }
 
-        // CHECK IF EMAIL AND NAME FILL 
         if (!user.userName.trim() || !user.userEmail.trim()) {
             const msg = "Please fill in all required fields";
             setErrorMsg(msg);
@@ -48,7 +46,7 @@ export default function Register() {
         toast.success("Success! Redirecting to Home...", { id: toastId });
 
         setTimeout(() => {
-            navigate("/"); // تم التغيير للتوجيه إلى الصفحة الرئيسية
+            navigate("/home");
         }, 1000);
     }
 

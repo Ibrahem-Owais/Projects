@@ -73,9 +73,10 @@ export default function Navbar() {
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm fixed-top">
                 <div className="container-fluid">
+                    
                     <Link
                         className="navbar-brand d-inline-flex align-items-center text-decoration-none fw-bold"
-                        to="/"
+                        to="/home"
                         onClick={handleNavLinkClick}
                         style={{ letterSpacing: '8px' }}
                     >
@@ -93,8 +94,9 @@ export default function Navbar() {
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/" onClick={handleNavLinkClick}>Home</NavLink>
+                                <NavLink className="nav-link" to="/home" onClick={handleNavLinkClick}>Home</NavLink>
                             </li>
 
                             <li className="nav-item">

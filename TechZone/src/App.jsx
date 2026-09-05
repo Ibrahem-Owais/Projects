@@ -15,7 +15,6 @@ import Accessories from './component/Accessories/Accessories';
 import Register from './component/Register/Register';
 import Profile from './component/Profile/Profile';
 
-
 import ProductDetails from './component/ProductDetails/ProductDetails';
 import ProdDetailsShop from './component/ProdDetailsShop/ProdDetailsShop';
 
@@ -25,7 +24,8 @@ const routes = createBrowserRouter([
     element: <Layout />,
     errorElement: <NotFound />,
     children: [
-      { index: true, element: <Home /> },
+      { index: true, element: <Register /> },
+      { path: 'home', element: <Home /> },
       { path: 'shop', element: <Shop /> },
       { path: 'case', element: <Case /> },
       { path: 'ram', element: <Ram /> },
@@ -40,7 +40,6 @@ const routes = createBrowserRouter([
       { path: 'profile', element: <Profile /> },
 
       { path: 'product-details/:id', element: <ProductDetails /> },
-
       { path: 'shop-product-details/:id', element: <ProdDetailsShop /> },
     ]
   }
