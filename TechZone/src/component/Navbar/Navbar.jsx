@@ -12,6 +12,7 @@ export default function Navbar() {
     const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
 
     const submenuRef = useRef(null);
+    const navRef = useRef(null);
     const navigate = useNavigate();
 
     // DARK THEME ON SCREEN
@@ -61,6 +62,11 @@ export default function Navbar() {
             if (submenuRef.current && !submenuRef.current.contains(event.target)) {
                 setIsPcComponentsOpen(false);
             }
+
+            //    to disable wil i tatsh ant thing in screen 
+            if (navRef.current && !navRef.current.contains(event.target)) {
+                handleNavLinkClick();
+            }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
@@ -71,9 +77,9 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm fixed-top">
+            <nav ref={navRef} className="navbar navbar-expand-lg bg-body-tertiary shadow-sm fixed-top">
                 <div className="container-fluid">
-                    
+
                     <Link
                         className="navbar-brand d-inline-flex align-items-center text-decoration-none fw-bold"
                         to="/home"
@@ -94,7 +100,7 @@ export default function Navbar() {
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                
+
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/home" onClick={handleNavLinkClick}>Home</NavLink>
                             </li>
