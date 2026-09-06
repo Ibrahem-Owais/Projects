@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
 
 export default function ProdDetailsShop() {
     const { id } = useParams();
@@ -7,9 +8,12 @@ export default function ProdDetailsShop() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
+    const [quantity, setQuantity] = useState(1);
+
+    const { addToCart } = useContext(CartContext);
+
     useEffect(() => {
         setLoading(true);
-            // DESTRUCT ID OR GET ID FROM API 
         fetch(`https://fakestoreapi.com/products/${id}`)
             .then((res) => {
                 if (!res.ok) throw new Error('Product not found');
@@ -25,6 +29,16 @@ export default function ProdDetailsShop() {
                 setLoading(false);
             });
     }, [id]);
+
+    const handleIncrease = () => setQuantity((prev) => prev + 1);
+    const handleDecrease = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+
+    const handleAddToCart = () => {
+        if (!product) return;
+        for (let i = 0; i < quantity; i++) {
+            addToCart(product);
+        }
+    };
 
     if (loading) {
         return (
@@ -76,7 +90,6 @@ export default function ProdDetailsShop() {
 
                         <div className="d-flex align-items-center gap-2 mb-3">
                             <div className="text-warning small">
-                                {/* THIS IS STATEC STARS FROM AI  */}
                                 ★ ★ ★ ★ ☆ <span className="text-body-secondary">({product.rating?.rate} / 5)</span>
                             </div>
                             <span className="text-body-secondary">|</span>
@@ -95,11 +108,38 @@ export default function ProdDetailsShop() {
                             <p className="text-body-secondary small mb-0">{product.description}</p>
                         </div>
 
+                        {/* EDIT QUNTTIY IN MAIN PAGE  */}
+                        <div className="d-flex align-items-center gap-3 mb-4">
+                            <span className="fw-semibold small">Quantity:</span>
+                            <div className="btn-group border rounded" role="group">
+                                <button
+                                    type="button"
+                                    onClick={handleDecrease}
+                                    className="btn btn-outline-secondary btn-sm px-3 fw-bold"
+                                >
+                                    -
+                                </button>
+                                <span className="btn btn-sm disabled text-body px-3 fw-bold bg-body-tertiary">
+                                    {quantity}
+                                </span>
+                                <button
+                                    type="button"
+                                    onClick={handleIncrease}
+                                    className="btn btn-outline-secondary btn-sm px-3 fw-bold"
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
                         <div className="pt-2 border-top border-secondary opacity-75 mt-auto">
                             <div className="row g-2">
                                 <div className="col-12 col-sm-6">
-                                    <button className="btn btn-primary btn-lg w-100 fw-semibold fs-6 py-2 shadow-sm">
-                                        {/* THIS ICON FROM AI  */}
+                                    <button
+                                        type="button"
+                                        onClick={handleAddToCart}
+                                        className="btn btn-primary btn-lg w-100 fw-semibold fs-6 py-2 shadow-sm"
+                                    >
                                         🛒 Add to Cart
                                     </button>
                                 </div>

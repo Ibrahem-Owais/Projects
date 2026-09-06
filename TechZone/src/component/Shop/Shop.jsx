@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
 
 export default function Shop() {
     const [products, setProducts] = useState([]);
@@ -9,10 +10,13 @@ export default function Shop() {
     const [searchParams, setSearchParams] = useSearchParams();
     const searchTerm = searchParams.get('search') || '';
 
+    // ADD CARTS 
+    const { addToCart } = useContext(CartContext);
+
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
             .then((res) => {
-                if (!res.ok) throw new Error('Conaction Faild');
+                if (!res.ok) throw new Error('Connection Failed');
                 return res.json();
             })
             .then((data) => {
@@ -21,7 +25,7 @@ export default function Shop() {
             })
             .catch((err) => {
                 console.error('API Error:', err);
-                setError('API Conaction Faild');
+                setError('API Connection Failed');
                 setLoading(false);
             });
     }, []);
@@ -40,14 +44,13 @@ export default function Shop() {
     );
 
     return (
-        //  TO APLLAY THE DARK THEM 
         <section className="py-5 bg-body min-vh-100">
             <div className="container">
                 <h2 className="fw-bold mb-4 text-center text-md-start bg-body-secondary text-body p-2 rounded">
                     Shop Products
                 </h2>
 
-              {/* SEARCH BAR  */}
+                {/* SEARCH BAR */}
                 <div className="row justify-content-center mb-5">
                     <div className="col-12 col-md-8 col-lg-6">
                         <div className="input-group shadow-sm">
@@ -105,7 +108,14 @@ export default function Shop() {
                                             <span className="fs-5 fw-bold text-primary my-2">${product.price}</span>
 
                                             <div className="mt-auto d-flex gap-2">
-                                                <button className="btn btn-primary w-100 fw-semibold">Add to Cart</button>
+                                                {/* APLLAT THE BUTTON */}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => addToCart(product)}
+                                                    className="btn btn-primary w-100 fw-semibold"
+                                                >
+                                                    Add to Cart
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

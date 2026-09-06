@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-
+import { CartContext } from '../../context/CartContext';
 
 const productsData = [
     {
@@ -55,34 +55,50 @@ const productsData = [
 
 export default function ProductDetails() {
     const { id } = useParams();
+    const { addToCart } = useContext(CartContext);
+    
+    // TO PLUS ONE +1 
+    const [quantity, setQuantity] = useState(1);
 
-    // TO VALIDATION IF THE ID IS TRUE
     const product = productsData.find((item) => item.id === id);
-
 
     if (!product) {
         return (
             <div className="container py-5 text-center min-vh-100">
                 <h3 className="text-danger fw-bold mb-3">Product Not Found</h3>
-                <Link to="/" className="btn btn-primary">
+                <Link to="/home" className="btn btn-primary">
                     ← Back to Deals
                 </Link>
             </div>
         );
     }
 
+    const handleIncrease = () => setQuantity((prev) => prev + 1);
+    const handleDecrease = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+
+    const handleAddToCart = () => {
+        const numericPrice = typeof product.price === 'string'
+            ? parseFloat(product.price.replace('$', ''))
+            : product.price;
+
+        for (let i = 0; i < quantity; i++) {
+            addToCart({
+                ...product,
+                price: numericPrice
+            });
+        }
+    };
+
     return (
         <section className="py-5 bg-body text-body min-vh-100">
             <div className="container">
-                {/* BACK BUTTON  */}
                 <div className="mb-4">
-                    <Link to="/" className="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                    <Link to="/home" className="btn btn-outline-secondary btn-sm rounded-pill px-3">
                         ← Back to Deals
                     </Link>
                 </div>
 
                 <div className="row g-5 align-items-center">
-                    {/* IMAGE OF PRODUCT  */}
                     <div className="col-12 col-md-6 text-center">
                         <div className="p-4 border rounded-3 bg-body-tertiary shadow-sm">
                             <img
@@ -94,7 +110,6 @@ export default function ProductDetails() {
                         </div>
                     </div>
 
-                    {/* DESCRIPTION OF PRODUCT  */}
                     <div className="col-12 col-md-6 d-flex flex-column">
                         <h1 className="fw-bold fs-3 text-body mb-2">{product.title}</h1>
 
@@ -110,7 +125,6 @@ export default function ProductDetails() {
 
                         <hr className="my-2 border-secondary opacity-25" />
 
-                        {/* PRICE  */}
                         <div className="my-3">
                             <span className="text-body-secondary small d-block">Price:</span>
                             <span className="fs-2 fw-bold text-primary">{product.price}</span>
@@ -126,11 +140,38 @@ export default function ProductDetails() {
                             <p className="text-body-secondary small mb-0">{product.fullDesc}</p>
                         </div>
 
-                        {/* BUUTONS  */}
+                        {/* THE QUANTUTY  */}
+                        <div className="d-flex align-items-center gap-3 mb-4">
+                            <span className="fw-semibold small">Quantity:</span>
+                            <div className="btn-group border rounded" role="group">
+                                <button 
+                                    type="button" 
+                                    onClick={handleDecrease} 
+                                    className="btn btn-outline-secondary btn-sm px-3 fw-bold"
+                                >
+                                    -
+                                </button>
+                                <span className="btn btn-sm disabled text-body px-3 fw-bold bg-body-tertiary">
+                                    {quantity}
+                                </span>
+                                <button 
+                                    type="button" 
+                                    onClick={handleIncrease} 
+                                    className="btn btn-outline-secondary btn-sm px-3 fw-bold"
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
                         <div className="pt-2 border-top border-secondary opacity-75 mt-auto">
                             <div className="row g-2">
                                 <div className="col-12 col-sm-6">
-                                    <button className="btn btn-primary btn-lg w-100 fw-semibold fs-6 py-2 shadow-sm">
+                                    <button
+                                        type="button"
+                                        onClick={handleAddToCart}
+                                        className="btn btn-primary btn-lg w-100 fw-semibold fs-6 py-2 shadow-sm"
+                                    >
                                         🛒 Add to Cart
                                     </button>
                                 </div>

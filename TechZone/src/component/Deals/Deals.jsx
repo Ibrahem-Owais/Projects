@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
 
 export const productsData = [
     {
@@ -53,20 +54,38 @@ export const productsData = [
 ];
 
 export default function Deals() {
+
+    const { addToCart } = useContext(CartContext);
+
+
+    const handleAddToCart = (product) => {
+        // CHANS THE STRING TO NUMBER 
+        const numericPrice = typeof product.price === 'string'
+            ? parseFloat(product.price.replace('$', ''))
+            : product.price;
+
+        const productToAdd = {
+            ...product,
+            price: numericPrice
+        };
+
+        addToCart(productToAdd);
+    };
+
     return (
         <section className="py-5 bg-body text-body rounded">
             <div className="container">
-                {/* TITLE OF SECTION  */}
+                {/* TITLE OF SECTION */}
                 <h2 className="fw-bold mb-4 text-center text-md-start text-body">Best Deals</h2>
 
-             {/* CONTAINER OF ALL  */}
+                {/* CONTAINER OF ALL */}
                 <div className="row g-4 justify-content-center justify-content-md-start">
                     {productsData.map((product) => (
                         <div key={product.id} className="col-12 col-sm-6 col-lg-4 col-xl-3">
 
                             <div className="card h-100 shadow-sm border border-primary bg-body-tertiary text-body d-flex flex-column">
 
-                              {/* TOUTSH ARYA TO GOTO THE DETAILS */}
+                                {/* TOUCH AREA TO GO TO DETAILS */}
                                 <Link to={`/product-details/${product.id}`} className="text-decoration-none text-body">
                                     <img
                                         src={product.image}
@@ -80,7 +99,7 @@ export default function Deals() {
                                     </div>
                                 </Link>
 
-                            {/* BUTTOM BUTTON READ MORE  */}
+                                {/* BOTTOM BUTTON READ MORE & ADD TO CART */}
                                 <div className="card-body pt-0 mt-auto d-flex flex-column">
                                     <div className="collapse mb-2" id={`productDesc-${product.id}`}>
                                         <div className="small text-body-secondary pt-2 border-top border-secondary opacity-50">
@@ -100,7 +119,15 @@ export default function Deals() {
                                     </button>
 
                                     <span className="fs-5 fw-bold text-primary mb-2">{product.price}</span>
-                                    <button className="btn btn-primary mt-auto w-100">Add to Cart</button>
+
+                                    {/* BUTTON TO ADD PRODUCT  */}
+                                    <button
+                                        type="button"
+                                        onClick={() => handleAddToCart(product)}
+                                        className="btn btn-primary mt-auto w-100 fw-semibold"
+                                    >
+                                        Add to Cart
+                                    </button>
                                 </div>
 
                             </div>
